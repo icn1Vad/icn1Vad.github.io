@@ -1,15 +1,5 @@
-<!-- - National Scholarship of Graduate Student, 2024.
+- Building a two-year AI engineering and research roadmap around Agentic RAG, citation correctness, multimodal document intelligence, and enterprise knowledge agents.
 
-- First-prize Scholarship of CUMT, 2024.
+- Maintaining daily AI/ML learning notes, LeetCode practice, and project write-ups for long-term portfolio growth.
 
-- First-prize Scholarship of CUMT, 2023.
-
-- Freshman Scholarship of CUMT, 2022.
-
-- Excellent Graduation Project of Jiangsu Province, 2022.
-
-- First-prize Enterprise Scholarship of CUMT, 2020.
-
-- First-prize Scholarship of CUMT, 2019.
--->
-- None
+- Interested in RA, internship, and product engineering opportunities related to reliable AI systems, document intelligence, and agent workflow evaluation.
