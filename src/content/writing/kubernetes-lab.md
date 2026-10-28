@@ -16,13 +16,13 @@
 }
 ---
 
-## 原始实验范围
+## Lab Scope <span class="heading-cn">实验范围</span>
 
 课程报告从集群安装和 kubectl 操作开始，继续练习应用部署、Service、Ingress 和基于 NFS 的持久化存储，保留了配置说明与截图。
 
 当时使用 Ubuntu 22.04 与 Kubernetes 1.26。这是历史实验环境，本次没有重新运行，也不建议直接照搬旧版本配置。
 
-## 按层定位问题
+## Debugging Layers <span class="heading-cn">逐层定位</span>
 
 节点就绪、Pod 就绪、外部访问成功和存储可用，是不同的检查项：
 
@@ -32,7 +32,7 @@
 4. 验证客户端访问 NodePort 或 Ingress。
 5. 检查 PVC 绑定与应用读写。
 
-## 常用检查命令
+## Inspection <span class="heading-cn">检查命令</span>
 
 ```bash
 # 以下为检查示例，名称需要替换为自己的资源

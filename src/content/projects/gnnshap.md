@@ -22,15 +22,15 @@
 }
 ---
 
-## 研究内容
+## Research Context <span class="heading-cn">研究内容</span>
 
 本科论文围绕癌症相关基因集合预测，探索 GNNShap 解释方法的适配。GNNShap 是上游作者提出的方法，我的工作集中在数据与模型输入对齐，以及解释流程的实验与分析。
 
-## 数据与解释流程
+## Data & Explanations <span class="heading-cn">适配流程</span>
 
 我将 CGMega / MCF7 图数据接入 PyTorch 和 PyG 工作流，处理标签转换、训练与验证掩码和模型输入，再运行采样与加权最小二乘解释实验。仓库保留适配代码、解释结果和运行日志。
 
-## 实验中的限制
+## Limitations <span class="heading-cn">实验限制</span>
 
 采样规模、GPU 显存和求解器失败会影响实验。得到一份解释结果，还需要检查数值稳定性、采样设置与可重复性，不能直接推导出解释可靠或具有实际医学用途。
 

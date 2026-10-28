@@ -20,6 +20,6 @@ for(const file of htmlFiles){
   if(/LOCAL PREVIEW|noindex|127\.0\.0\.1|[A-Z]:\\\\|320210\d+|186[ -]?5466[ -]?2297/.test(html))failures.push(`${file}: preview or private data found`);
   for(const privateRepo of ['personal-ledger-agent','proofspace-midframe'])if(html.includes(`github.com/icn1Vad/${privateRepo}`))failures.push(`${file}: private repository link`);
 }
-for(const file of ['rss.xml','sitemap.xml','assets/kaifeng-yan-cv.pdf'])if(!fs.existsSync(path.join(root,file)))failures.push(`Missing ${file}`);
+for(const file of ['rss.xml','sitemap.xml','assets/kaifeng-yan-cv.pdf','assets/kaifeng-yan-cv-zh.pdf'])if(!fs.existsSync(path.join(root,file)))failures.push(`Missing ${file}`);
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}
 console.log(`Validated ${htmlFiles.length} HTML pages, internal assets and links, feed, sitemap, CV, and public-data boundaries.`);
