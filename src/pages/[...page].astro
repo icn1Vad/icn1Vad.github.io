@@ -1,0 +1,9 @@
+---
+import Site from '../layouts/Site.astro';
+import {getSiteData} from '../lib/data.mjs';
+import {renderPage} from '../lib/views.mjs';
+export function getStaticPaths(){return [{params:{page:undefined},props:{path:'/',title:'Engineering & Notes',active:'home'}},...['projects','writing','categories','categories/cloud-computing','about','resume'].map(page=>({params:{page},props:{path:'/'+page+'/',title:({'categories/cloud-computing':'Cloud Computing & Big Data',resume:'Public CV'})[page]||page.charAt(0).toUpperCase()+page.slice(1),active:page.split('/')[0]}}))];}
+const {path,title,active}=Astro.props;
+const html=renderPage(path,await getSiteData());
+---
+<Site title={title} active={active}><Fragment set:html={html}/></Site>
