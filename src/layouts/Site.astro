@@ -1,0 +1,15 @@
+---
+import '../styles/site.css';
+import header from '../fragments/header.html?raw';
+import aside from '../fragments/aside.html?raw';
+import footer from '../fragments/footer.html?raw';
+import dialog from '../fragments/dialog.html?raw';
+import {getSiteData} from '../lib/data.mjs';
+const {title='Engineering & Notes',description='Kaifeng Yan — full-stack development, practical AI agents, and engineering notes.',active='home'}=Astro.props;
+const dataset=await getSiteData();
+const searchData=[...dataset.projects.map(p=>({title:p.title,type:'Project',summary:p.summary,text:p.cn+' '+p.tags.join(' ')+' '+p.body,url:'/projects/'+p.slug+'/'})),...dataset.articles.map(a=>({title:a.title,type:'Engineering note',summary:a.cn,text:a.cn+' '+a.tags.join(' ')+' '+a.body,url:'/writing/'+a.slug+'/'}))];
+const headerHtml=header.replace(new RegExp('data-nav="'+active+'"'),'data-nav="'+active+'" class="active" aria-current="page"');
+const asideHtml=aside.replace('class="topic-count">04','class="topic-count">'+String(dataset.articles.length).padStart(2,'0'));
+const canonical=new URL(Astro.url.pathname,Astro.site);
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="description" content={description}/><meta name="theme-color" content="#f7f8f6"/><title>{title} — Kaifeng Yan</title><link rel="canonical" href={canonical}/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="alternate" type="application/rss+xml" title="Kaifeng Yan — Engineering notes" href="/rss.xml"/><meta property="og:title" content={title+' — Kaifeng Yan'}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:url" content={canonical}/><meta property="og:image" content={new URL('/social-card.svg',Astro.site)}/><meta name="twitter:card" content="summary_large_image"/></head><body><a class="skip-link" href="#main">Skip to content</a><div class="preview-bar"><span class="preview-dot"></span> ENGINEERING & NOTES <span class="preview-divider">/</span> Projects · Systems · Practical AI</div><Fragment set:html={headerHtml}/><div class="site-layout"><Fragment set:html={asideHtml}/><main id="main" tabindex="-1"><slot/></main></div><Fragment set:html={footer}/><Fragment set:html={dialog}/><script type="application/json" id="search-data" set:html={JSON.stringify(searchData).replaceAll('<','\u003c')}/><script>import '../scripts/site.js';</script></body></html>

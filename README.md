@@ -1,57 +1,35 @@
-![GitHub forks](https://img.shields.io/github/forks/icn1Vad/icn1Vad.github.io?style=flat)
-![GitHub stars](https://img.shields.io/github/stars/icn1Vad/icn1Vad.github.io?style=flat)
-![License](https://img.shields.io/github/license/icn1Vad/icn1Vad.github.io)
-![Last commit](https://img.shields.io/github/last-commit/icn1Vad/icn1Vad.github.io)
+# Kaifeng Yan — Engineering & Notes
 
-# Yan's Personal Website
+Personal portfolio and bilingual technical notes, built with Astro and published at **https://icn1vad.github.io/**.
 
-This repository hosts my personal academic and project portfolio website.
+The site presents full-stack and AI agent projects, education and internships, an English public CV, and notes from my own cloud-computing coursework. English is the primary language; Chinese labels and annotations provide additional context.
 
-The site is used to collect and present my work around AI agents, LLM learning, graph neural networks, research notes, and personal productivity tools.
+## Local development
 
-## What this site includes
+Use Node.js 24 and pnpm 11.
 
-- Personal introduction and research interests
-- Project portfolio and selected repositories
-- Learning notes and technical writing
-- Academic / research-related materials
-- Contact and profile links
-
-## Repository Structure
-
-```text
-.
-├── contents/             # Markdown content for website sections
-├── static/
-│   ├── assets/img/       # Images, avatar, and background assets
-│   ├── css/              # Stylesheets
-│   └── js/               # Website scripts
-└── README.md
+```sh
+pnpm install
+pnpm dev
+pnpm build
+pnpm check:content
+pnpm preview
 ```
 
-## Editing Content
+## Update content
 
-Most page content is written in Markdown under `contents/`.
+- Add or edit articles in `src/content/writing/` and project case studies in `src/content/projects/`.
+- Each Markdown file carries its title, bilingual subtitle, tags, provenance, and other page metadata in frontmatter.
+- Shared layout and styles are in `src/layouts/` and `src/styles/`; browser interactions are in `src/scripts/site.js`.
+- The downloadable public CV is in `public/assets/kaifeng-yan-cv.pdf`. It omits private contact details.
+- Course notes distinguish the original lab year from publication. A historical record is not a claim that the environment was rerun against current releases.
 
-Common updates:
+## Deployment
 
-1. Edit section content in `contents/*.md`.
-2. Update site title, navigation, and metadata in `contents/config.yml`.
-3. Replace profile images or background images in `static/assets/img/`.
-4. Push changes to the `main` branch.
+GitHub Actions checks pull requests. Pushes to `main` build and deploy `dist/` to GitHub Pages. No secrets are required for the static site. Search runs locally in the visitor’s browser. There are no analytics, external fonts, or third-party scripts.
 
-## Local Preview
+## History and credits
 
-This website is designed to work as a GitHub Pages site. After pushing to `main`, it will be available at:
+The earlier site used Sen Li’s academic-homepage template. The original MIT license is preserved in `LICENSE`. The legacy `contents/`, `static/`, and root `index.html` remain in the repository history and working tree for reference; the current deployment serves only the Astro build output.
 
-```text
-https://icn1Vad.github.io
-```
-
-## Credits
-
-This site is adapted from an academic personal website template by Sen Li and customized for my own profile and project portfolio.
-
-## License
-
-Please check the repository license file for details. If you reuse the original template structure, keep attribution to the upstream template author.
+The current design was developed from a reviewed local HTML prototype. Article structure takes inspiration from technical blogs; the content uses my own course records and project documentation. Research adaptations retain their upstream attributions.

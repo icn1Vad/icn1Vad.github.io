@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://icn1vad.github.io/sitemap.xml
