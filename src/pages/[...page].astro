@@ -2,7 +2,7 @@
 import Site from '../layouts/Site.astro';
 import {getSiteData} from '../lib/data.mjs';
 import {renderPage} from '../lib/views.mjs';
-export function getStaticPaths(){const titles={projects:'项目',writing:'技术笔记',categories:'内容分类','categories/cloud-computing':'云计算与大数据',about:'关于我',resume:'简历'};return [{params:{page:undefined},props:{path:'/',title:'项目与技术笔记',active:'home'}},...Object.entries(titles).map(([page,title])=>({params:{page},props:{path:'/'+page+'/',title,active:page.split('/')[0]==='categories'?'writing':page.split('/')[0]}}))];}
+export function getStaticPaths(){const titles={projects:'项目',writing:'技术笔记',categories:'内容分类','categories/cloud-computing':'云计算与大数据',about:'关于我',resume:'简历'};return [{params:{page:undefined},props:{path:'/',title:'Projects & Notes',active:'home'}},...Object.entries(titles).map(([page,title])=>({params:{page},props:{path:'/'+page+'/',title,active:page.split('/')[0]==='categories'?'writing':page.split('/')[0]}}))];}
 const {path,title,active}=Astro.props;
 const html=renderPage(path,await getSiteData());
 ---

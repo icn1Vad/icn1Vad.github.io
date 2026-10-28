@@ -16,17 +16,17 @@
 }
 ---
 
-## 从服务配置理解云平台
+## Service Setup <span class="heading-cn">服务配置</span>
 
 原始报告记录了 Ubuntu 22.04 环境中的 OpenStack 课程实验，包含 Keystone、Glance 和 Placement 配置。这篇笔记侧重服务职责与验证顺序；本次没有重新运行环境，也不直接复用旧配置文件。
 
-## 一台虚拟机涉及哪些服务
+## Service Responsibilities <span class="heading-cn">服务职责</span>
 
 <div class="article-table-wrap"><table class="article-table"><thead><tr><th>服务</th><th>职责</th></tr></thead><tbody><tr><td>Keystone</td><td>身份认证与服务访问。</td></tr><tr><td>Glance</td><td>提供实例使用的镜像。</td></tr><tr><td>Placement</td><td>记录资源清单与分配信息。</td></tr><tr><td>Nova</td><td>管理计算资源与实例生命周期。</td></tr><tr><td>Neutron</td><td>为实例提供网络连接。</td></tr></tbody></table></div>
 
 这个表用于解释工作流，不代表原实验已验证全部服务组合。
 
-## 控制面检查
+## Control-plane Checks <span class="heading-cn">控制面检查</span>
 
 ```bash
 # 需要先配置自己的 OpenStack 客户端凭据

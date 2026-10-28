@@ -3,9 +3,6 @@ import {getCollection,render} from 'astro:content';
 import Site from '../../layouts/Site.astro';
 export async function getStaticPaths(){return (await getCollection('writing')).map(entry=>({params:{slug:entry.id},props:{entry}}));}
 const {entry}=Astro.props;const a=entry.data;const {Content}=await render(entry);
+const english={'ceph-storage':'One cluster, three storage interfaces and a separate client.','hadoop-spark':'From a Hadoop environment to typed PySpark queries.','kubernetes-lab':'Checking nodes, workloads, services and persistent storage.','openstack-lab':'Following identity, images, compute resources and networking.'};
 ---
-<Site title={a.title} description={a.summary} active="writing">
-  <a class="back-link" href="/writing/">返回技术笔记</a>
-  <header class="article-head"><h1>{a.title}</h1><p class="meta">{a.year} 年课程实验，整理于 2026 年 10 月。</p></header>
-  <article class="article-body"><Content/><footer class="article-foot"><p>来源：{a.source}</p></footer></article>
-</Site>
+<Site title={a.title} description={a.summary} active="writing"><a class="back-link" href="/writing/">Notes / 技术笔记</a><header class="article-head"><h1>{a.title}</h1><p class="article-en" lang="en">{english[entry.id]}</p><p class="meta">{a.year} course lab，整理于 2026 年 10 月。</p></header><article class="article-body"><Content/><footer class="article-foot"><p>Source / 来源：{a.source}</p></footer></article></Site>

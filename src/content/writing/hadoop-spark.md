@@ -17,11 +17,11 @@
 }
 ---
 
-## 两部分课程实践
+## Context <span class="heading-cn">课程实践</span>
 
 这篇笔记对应一份 Hadoop 实验报告和一段独立的 PySpark 航班数据脚本。前者记录环境搭建，后者用数据查询理解过滤、聚合和执行计划。旧版 Word 报告的安装细节仍需单独核对，这里不复述成当前部署指南。
 
-## Spark 脚本做了什么
+## Data Queries <span class="heading-cn">数据查询</span>
 
 脚本创建 Spark session、读取航班 CSV、查看出发地和目的地国家、汇总航线数量、筛选国内航线，并用 `explain()` 查看物理执行计划。
 
@@ -49,6 +49,6 @@ routes.explain()
 spark.stop()
 ```
 
-## 如何解释结果
+## Verification <span class="heading-cn">结果解释</span>
 
 先核对输入结构、缺失值和 `count` 的含义，再解读航线汇总。执行计划能说明计算结构，但本身不是性能测试。完整复现还需要数据来源、小型样例、运行版本和保存的输出；本文不补写未实际得到的运行结果。

@@ -3,10 +3,6 @@ import {getCollection,render} from 'astro:content';
 import Site from '../../layouts/Site.astro';
 export async function getStaticPaths(){return (await getCollection('projects')).map(entry=>({params:{slug:entry.id},props:{entry}}));}
 const {entry}=Astro.props;const p=entry.data;const {Content}=await render(entry);
+const abstracts={proofspace:'Enterprise document review with human verification and asynchronous agent execution.','ledger-mcp':'A reusable MCP server template connecting natural-language requests, structured records and local exports.',gnnshap:'Dataset adaptation and explanation experiments built on the upstream GNNShap method.'};
 ---
-<Site title={p.title} description={p.summary} active="projects">
-  <a class="back-link" href="/projects/">返回项目列表</a>
-  <header class="article-head"><h1>{p.title}</h1><p class="article-deck">{p.cn}</p><p class="technology">技术：{p.tags.join('、')}</p></header>
-  <dl class="project-facts"><div><dt>个人职责</dt><dd>{p.role}</dd></div><div><dt>时间</dt><dd>{p.period}</dd></div></dl>
-  <article class="article-body"><Content/><div class="external-links">{p.links.map(([label,url])=><a href={url}>{label}</a>)}</div></article>
-</Site>
+<Site title={p.title} description={p.summary} active="projects"><a class="back-link" href="/projects/">Projects / 项目列表</a><header class="article-head"><h1>{p.title}</h1><p class="article-en" lang="en">{abstracts[entry.id]}</p><p class="article-deck">{p.cn}</p><p class="technology">{p.tags.join(' / ')}</p></header><dl class="project-facts"><div><dt>Role / 个人职责</dt><dd>{p.role}</dd></div><div><dt>Period / 时间</dt><dd>{p.period}</dd></div></dl><article class="article-body"><Content/><div class="external-links">{p.links.map(([label,url])=><a href={url}>{label}</a>)}</div></article></Site>
