@@ -1,35 +1,35 @@
 ---
 {
-  "title": "OpenStack: tracing the path to a virtual machine",
+  "title": "OpenStack：云平台搭建与服务验证",
   "cn": "云平台环境搭建与服务验证",
   "tags": [
     "OpenStack",
     "Linux"
   ],
-  "category": "Cloud Computing & Big Data",
+  "category": "云计算与大数据 / Cloud Computing & Big Data",
   "year": "2024",
   "readTime": "1 min",
-  "summary": "Understanding the roles of identity, images, resource placement, compute, and networking.",
-  "source": "My Ubuntu 22.04 OpenStack course report, 2024.",
+  "summary": "理解认证、镜像、资源调度、计算和网络服务之间的依赖关系。",
+  "source": "本人基于 Ubuntu 22.04 的 OpenStack 课程实验报告，2024 年。",
   "published": "2026-10-28",
   "status": "archive-note"
 }
 ---
 
-## 01 / A platform made of services
+## 从服务配置理解云平台
 
-<p>My OpenStack report records an Ubuntu 22.04 course lab and service-by-service configuration. This draft focuses on how those services fit together, rather than republishing a long configuration file.</p><p>The archive includes Keystone, Glance, and Placement setup material. Installation commands and original configuration values still need a version-specific audit before a modern rerun.</p>
+原始报告记录了 Ubuntu 22.04 环境中的 OpenStack 课程实验，包含 Keystone、Glance 和 Placement 配置。这篇笔记侧重服务职责与验证顺序；本次没有重新运行环境，也不直接复用旧配置文件。
 
-## 02 / Follow the responsibilities
+## 一台虚拟机涉及哪些服务
 
-<div class="article-table-wrap"><table class="article-table"><thead><tr><th scope="col">Service</th><th scope="col">Role in a VM workflow</th></tr></thead><tbody><tr><td>Keystone</td><td>Identity and service access.</td></tr><tr><td>Glance</td><td>Images used to create instances.</td></tr><tr><td>Placement</td><td>Resource inventory and allocation information.</td></tr><tr><td>Nova</td><td>Compute and instance lifecycle.</td></tr><tr><td>Neutron</td><td>Networking for the instance.</td></tr></tbody></table></div><p>This service map is explanatory context. A service appearing in the map is not a claim that every possible integration or failure mode was tested in the lab.</p>
+<div class="article-table-wrap"><table class="article-table"><thead><tr><th>服务</th><th>职责</th></tr></thead><tbody><tr><td>Keystone</td><td>身份认证与服务访问。</td></tr><tr><td>Glance</td><td>提供实例使用的镜像。</td></tr><tr><td>Placement</td><td>记录资源清单与分配信息。</td></tr><tr><td>Nova</td><td>管理计算资源与实例生命周期。</td></tr><tr><td>Neutron</td><td>为实例提供网络连接。</td></tr></tbody></table></div>
 
-## 03 / Inspect the control-plane view
+这个表用于解释工作流，不代表原实验已验证全部服务组合。
 
-
+## 控制面检查
 
 ```bash
-# Requires your own configured OpenStack client credentials
+# 需要先配置自己的 OpenStack 客户端凭据
 openstack service list
 openstack endpoint list
 openstack image list
@@ -38,8 +38,4 @@ openstack network list
 openstack server list
 ```
 
-<p>Begin with service registration and endpoints, then inspect the resources needed by the instance workflow. An installed dashboard alone does not verify that an instance can boot or communicate.</p>
-
-## 04 / A useful verification chain
-
-<ol><li>Confirm authenticated client access and the relevant service endpoints.</li><li>Confirm an image, an available compute resource, and an intended network.</li><li>Record the instance request and inspect its resulting state.</li><li>Test client access and preserve the observations with the environment version.</li></ol><p>This is the verification structure for the edited article. The complete boot-and-connect evidence should be checked against the archived screenshots before publication.</p><p lang="zh">整理方向：按服务依赖和验证结果组织内容，避免把安装完成直接写成整个平台验证完成。</p>
+先检查认证、服务注册与 endpoint，再确认镜像、计算资源和网络是否可用。随后记录实例创建请求与状态，最后验证客户端访问。完整的启动和连通性结论仍需对照原始截图，不能仅凭控制台安装成功就认定整个平台验证完成。

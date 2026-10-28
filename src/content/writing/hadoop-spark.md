@@ -1,45 +1,42 @@
 ---
 {
-  "title": "Hadoop & Spark: from environment to data queries",
+  "title": "Hadoop 与 Spark：环境构建和航班数据分析",
   "cn": "大数据环境构建与航班数据分析",
   "tags": [
     "Hadoop",
     "Spark",
     "Python"
   ],
-  "category": "Cloud Computing & Big Data",
+  "category": "云计算与大数据 / Cloud Computing & Big Data",
   "year": "2024",
   "readTime": "2 min",
-  "summary": "Notes on the Hadoop lab and a PySpark flight-data exercise: filtering, aggregation, and query plans.",
-  "source": "My Hadoop lab report and spark.py course exercise, 2024.",
+  "summary": "把 Hadoop 环境实验与 PySpark 航班数据练习串起来，检查类型、聚合与执行计划。",
+  "source": "本人 2024 年 Hadoop 实验报告与 spark.py 课程练习。",
   "published": "2026-10-28",
   "status": "archive-note"
 }
 ---
 
-## 01 / Two connected exercises
+## 两部分课程实践
 
-<p>My course archive contains a Hadoop lab report and a separate PySpark exercise on flight records. This draft connects the environment work with a concrete data-processing task, while keeping the two sources distinct.</p><p>The older Hadoop report uses the legacy Word format. Its detailed installation procedure still needs conversion and a separate editorial pass, so it is not reproduced as a current setup guide here.</p>
+这篇笔记对应一份 Hadoop 实验报告和一段独立的 PySpark 航班数据脚本。前者记录环境搭建，后者用数据查询理解过滤、聚合和执行计划。旧版 Word 报告的安装细节仍需单独核对，这里不复述成当前部署指南。
 
-## 02 / The Spark exercise
+## Spark 脚本做了什么
 
-<p>The saved script creates a Spark session, loads a flight CSV, lists distinct origin and destination countries, aggregates route counts, filters domestic routes, and inspects the physical execution plan.</p><div class="article-table-wrap"><table class="article-table"><thead><tr><th scope="col">Operation</th><th scope="col">Purpose</th></tr></thead><tbody><tr><td>select + distinct</td><td>Inspect unique countries.</td></tr><tr><td>groupBy + sum</td><td>Aggregate counts by origin and destination.</td></tr><tr><td>filter</td><td>Select domestic flights or a destination country.</td></tr><tr><td>orderBy</td><td>Sort records or aggregated routes.</td></tr><tr><td>explain</td><td>Inspect the physical execution plan.</td></tr></tbody></table></div>
+脚本创建 Spark session、读取航班 CSV、查看出发地和目的地国家、汇总航线数量、筛选国内航线，并用 `explain()` 查看物理执行计划。
 
-## 03 / A typed version of the data query
-
-<p>The archived script reads CSV fields without an explicit schema. The following edited example makes the count column numeric before aggregation. It is an editorial improvement, and has not been executed against the original dataset for this article.</p>
+原脚本读取 CSV 时没有显式声明字段类型。下面的整理示例先将 `count` 转为整数，并检查转换失败的记录；它没有在本次整理中重新运行。
 
 ```python
 from pyspark.sql import SparkSession, functions as F
 
 spark = SparkSession.builder.appName("Flight Analysis").getOrCreate()
-
 flights = (
     spark.read.option("header", True).csv("Flights.csv")
     .withColumn("count", F.col("count").cast("long"))
 )
 
-# Inspect invalid counts / 先检查类型转换失败的数据
+# 先检查类型转换失败的数据
 flights.filter(F.col("count").isNull()).show()
 
 routes = (
@@ -52,8 +49,6 @@ routes.explain()
 spark.stop()
 ```
 
+## 如何解释结果
 
-
-## 04 / Verification before interpretation
-
-<p>Check the input schema, missing values, and meaning of the count column before interpreting route totals. A query plan explains the execution structure; it is not, by itself, a benchmark.</p><p>The source CSV is not bundled for this article, and the snippet’s output is not fabricated. A reproducible release needs the dataset source, a small fixture, runtime versions, and saved results.</p>
+先核对输入结构、缺失值和 `count` 的含义，再解读航线汇总。执行计划能说明计算结构，但本身不是性能测试。完整复现还需要数据来源、小型样例、运行版本和保存的输出；本文不补写未实际得到的运行结果。

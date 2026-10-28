@@ -1,25 +1,25 @@
 ---
 {
   "title": "ProofSpace",
-  "subtitle": "Enterprise document review, built around human verification.",
+  "subtitle": "企业合同与制度审查 Agent",
   "cn": "企业合同与制度审查 Agent",
-  "type": "Core project",
-  "period": "2026 — ongoing",
-  "role": "Co-founder · Product design & full-stack development",
+  "type": "团队产品",
+  "period": "2026 年至今",
+  "role": "联合创始人，产品设计与全栈开发",
   "tags": [
     "Next.js",
     "Java",
     "Python",
     "AI Agents"
   ],
-  "summary": "Product flows, web interfaces, and asynchronous agent execution for contract and policy review.",
+  "summary": "围绕合同与制度审查，参与产品流程、Web 交互和异步 Agent 系统的设计与开发。",
   "links": [
     [
-      "Frontend repository",
+      "前端仓库",
       "https://github.com/icn1Vad/frontframe"
     ],
     [
-      "Agent framework",
+      "Agent 框架",
       "https://github.com/icn1Vad/Aituge-framework"
     ]
   ],
@@ -27,24 +27,23 @@
 }
 ---
 
-## The problem
+## 项目要解决的问题
 
-<p>Enterprise and legal teams need to review confidential contracts against policies and rules. A useful review interface needs to connect each finding back to the document, support human judgment, and handle tasks that take longer than a normal web request.</p><p>ProofSpace is a working product prototype with a private-deployment approach. I work on product design, customer communication, interactive frontend demos, and full-stack development as part of a three-person technical team.</p>
+企业文档审查既要识别风险，也要让用户回到原文检查依据。ProofSpace 将文档、风险条目、修改建议和追问放在同一工作流中，并通过异步任务处理耗时的 AI 步骤。目前已有可运行原型，采用私有化部署思路，仍在持续迭代。
 
-## My contribution
+## 我的工作
 
-<ul><li><strong>Product flows:</strong> translate document-review scenarios into policy ingestion, entity identification, rule selection, risk review, follow-up questions, and report export.</li><li><strong>Web interactions:</strong> build React / Next.js pages and task lists, integrate server-side pagination, and organize request deduplication, session-scoped caching, background refresh, and failure recovery.</li><li><strong>System integration:</strong> contribute to the boundaries between web interactions, Java business services, and the Python agent framework.</li><li><strong>Product communication:</strong> explain review workflows and demonstrate interactive frontend prototypes to prospective enterprise users.</li></ul>
+- **产品流程**：参与制度导入、主体识别、规则选择、风险审查与报告导出流程设计，并进行客户沟通和交互演示。
+- **前端开发**：开发 React / Next.js 页面与任务列表，处理分页、请求去重、会话缓存、后台刷新和失败恢复。
+- **系统集成**：参与 Web、Java 业务服务和 Python Agent 框架之间的职责划分与接口协作。
+- **审查交互**：连接风险条目与原文高亮、修改对照和引用追问，让用户保留最终判断。
 
-## A task-based architecture
+## 系统如何组织任务
 
-<p>The system separates web interaction, business state, and agent execution. Task, Run, Event, and Artifact describe the work, its execution attempts, progress, and outputs. Workers execute the longer-running steps.</p><p>The team uses chapter windows, a contract intermediate representation, and source-offset mappings to connect findings with their evidence. Versioned memory and summaries retain task intent, state, and pending work across agent interactions.</p>
+Web 负责交互，Java 服务管理业务状态，Python 框架执行 Agent 工作。Task、Run、Event 和 Artifact 分别描述任务、执行尝试、进度事件与产物，Worker 处理长时间运行的步骤。
 
-## Designing for review
+团队通过章节窗口、合同中间表示和原文偏移映射关联结论与证据，并使用版本化记忆与摘要保留任务意图、状态和待办。
 
-<p>The product flow connects document and risk panels, source highlighting, proposed changes, citation-based questions, and report export. My focus is helping users move from an AI-generated finding to something they can inspect and act on.</p><p lang="zh">设计重点：审查结果需要能定位原文、支持修改对照，并让用户保留最终判断。</p>
+## 当前范围
 
-## Status & boundaries
-
-<p>The project has a runnable prototype and continues toward modular delivery. This case study describes the product and architecture; it does not claim production adoption, customer counts, benchmark gains, or independent ownership of the team’s entire system.</p><p>Only existing public repositories are linked here. Customer documents, private service code, and real business data are excluded.</p>
-
-The public frontend snapshot defaults to mock adapters. Its documented HTTP ports and interface contracts describe integration boundaries; the two linked repositories do not constitute the complete private deployment.
+这是三人技术团队共同推进的产品，我的职责以产品、前端与系统集成为主。公开前端快照默认使用 mock adapters，两个公开仓库只呈现部分组件。客户文档、私有服务代码和真实业务数据不在公开范围内；这里也不将原型写成已经规模化落地的产品。

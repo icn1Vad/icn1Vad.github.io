@@ -2,7 +2,7 @@
 
 Personal portfolio and bilingual technical notes, built with Astro and published at **https://icn1vad.github.io/**.
 
-The site presents full-stack and AI agent projects, education and internships, an English public CV, and notes from my own cloud-computing coursework. English is the primary language; Chinese labels and annotations provide additional context.
+The site presents full-stack and AI agent projects, education and internships, an English public CV, and notes from my own cloud-computing coursework. Chinese is the primary reading language, with English technical terms and a downloadable English CV. The layout uses a single column, plain text navigation, and compact project and note lists.
 
 ## Local development
 
