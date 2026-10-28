@@ -1,20 +1,20 @@
 ---
 {
   "title": "GNNShap-to-Cancer",
-  "subtitle": "Adapting graph explanations to cancer-related gene data.",
-  "cn": "本科毕业论文 · 图神经网络可解释性",
-  "type": "Undergraduate thesis",
-  "period": "2025",
-  "role": "Data adaptation & explanation experiments",
+  "subtitle": "图神经网络解释方法在癌症相关基因数据上的适配",
+  "cn": "本科毕业论文：图神经网络可解释性",
+  "type": "本科毕业论文",
+  "period": "2025 年",
+  "role": "数据适配与解释实验",
   "tags": [
     "PyTorch",
     "PyG",
     "Graph ML"
   ],
-  "summary": "Dataset adaptation and Shapley-based explanation experiments, with attention to practical constraints.",
+  "summary": "适配 CGMega / MCF7 图数据，运行 GNNShap 解释实验，并记录显存和求解器限制。",
   "links": [
     [
-      "Research adaptation",
+      "研究适配仓库",
       "https://github.com/icn1Vad/GNNShap-to-Cancer"
     ]
   ],
@@ -22,18 +22,16 @@
 }
 ---
 
-## Research context
+## 研究内容
 
-<p>My undergraduate thesis explored GNNShap-based explanations for cancer-related gene-set prediction. This work builds on existing graph-learning and explanation methods; GNNShap itself is the upstream authors’ research.</p>
+本科论文围绕癌症相关基因集合预测，探索 GNNShap 解释方法的适配。GNNShap 是上游作者提出的方法，我的工作集中在数据与模型输入对齐，以及解释流程的实验与分析。
 
-## Data and model alignment
+## 数据与解释流程
 
-<p>I adapted CGMega / MCF7 graph data for PyTorch and PyG workflows, including label conversion, training and validation masks, and model-input alignment. These steps make the relationship between graph data, prediction targets, and the explanation pipeline explicit.</p>
+我将 CGMega / MCF7 图数据接入 PyTorch 和 PyG 工作流，处理标签转换、训练与验证掩码和模型输入，再运行采样与加权最小二乘解释实验。仓库保留适配代码、解释结果和运行日志。
 
-## Explanation experiments
+## 实验中的限制
 
-<p>I ran GNNShap sampling and weighted least-squares explanation experiments, producing adaptation code, explanation results, and run logs. The investigation included sampling scale, GPU-memory limits, and solver failures.</p><p lang="zh">实验记录需要保留限制与异常，避免把“得到解释结果”直接等同于“证明解释可靠”。</p>
+采样规模、GPU 显存和求解器失败会影响实验。得到一份解释结果，还需要检查数值稳定性、采样设置与可重复性，不能直接推导出解释可靠或具有实际医学用途。
 
-## Attribution & limitations
-
-<p>The repository documentation distinguishes the upstream GNNShap method from my dataset adaptations and thesis experiments. The upstream README and citation are retained, with a separate adaptation guide explaining the available artifacts and reproduction limits.</p><p>No publication, medical utility, or performance improvement is claimed here.</p>
+仓库保留上游 README 与引用，并单独说明数据适配和复现限制。此处不宣称论文发表、性能提升或医学效果。

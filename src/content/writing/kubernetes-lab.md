@@ -1,49 +1,47 @@
 ---
 {
-  "title": "Kubernetes: getting from a node to an application",
+  "title": "Kubernetes：集群安装、应用部署与服务访问",
   "cn": "集群安装、应用部署与服务访问",
   "tags": [
     "Kubernetes",
     "Linux"
   ],
-  "category": "Cloud Computing & Big Data",
+  "category": "云计算与大数据 / Cloud Computing & Big Data",
   "year": "2024",
   "readTime": "1 min",
-  "summary": "A course-lab walkthrough of workloads, services, rollout checks, ingress, and persistent storage.",
-  "source": "My Kubernetes course report, 2024.",
+  "summary": "沿着 Node、Deployment、Service 和存储声明逐层检查应用是否真正可用。",
+  "source": "本人 2024 年 Kubernetes 课程实验报告。",
   "published": "2026-10-28",
   "status": "archive-note"
 }
 ---
 
-## 01 / The scope of the lab
+## 原始实验范围
 
-<p>My course report covers cluster setup and kubectl operations, then progresses to application deployment, service exposure, ingress, and NFS-backed persistent storage. The archive includes my configuration notes and screenshots.</p><p>The original instructions target Kubernetes 1.26 with an Ubuntu 22.04 lab environment. This is a historical record, not a recommendation to deploy that version today.</p>
+课程报告从集群安装和 kubectl 操作开始，继续练习应用部署、Service、Ingress 和基于 NFS 的持久化存储，保留了配置说明与截图。
 
-## 02 / Keep the layers separate
+当时使用 Ubuntu 22.04 与 Kubernetes 1.26。这是历史实验环境，本次没有重新运行，也不建议直接照搬旧版本配置。
 
-<div class="article-table-wrap"><table class="article-table"><thead><tr><th scope="col">Layer</th><th scope="col">Question to answer</th></tr></thead><tbody><tr><td>Node and runtime</td><td>Is the node ready, and is the container runtime connected?</td></tr><tr><td>Workload</td><td>Has the Deployment created the expected ready Pods?</td></tr><tr><td>Service</td><td>Does service selection match the intended workload?</td></tr><tr><td>External access</td><td>Can a client reach the NodePort or ingress entry point?</td></tr><tr><td>Storage</td><td>Is the claim bound, and can the application use the volume?</td></tr></tbody></table></div><p>A healthy Pod is only one part of the chain. Network exposure and storage need their own checks.</p>
+## 按层定位问题
 
-## 03 / A small inspection routine
+节点就绪、Pod 就绪、外部访问成功和存储可用，是不同的检查项：
 
+1. 查看节点与容器运行时是否正常连接。
+2. 查看 Deployment 是否产生预期的就绪 Pod。
+3. 检查 Service 的选择器和目标工作负载。
+4. 验证客户端访问 NodePort 或 Ingress。
+5. 检查 PVC 绑定与应用读写。
 
+## 常用检查命令
 
 ```bash
-# Infrastructure and workloads
+# 以下为检查示例，名称需要替换为自己的资源
 kubectl get nodes -o wide
 kubectl get deployments,pods,services -n <namespace>
-
-# Rollout and diagnostic context
 kubectl rollout status deployment/<app> -n <namespace>
 kubectl describe pod <pod> -n <namespace>
 kubectl get events -n <namespace> --sort-by=.metadata.creationTimestamp
-
-# Persistent storage / 检查存储声明
 kubectl get pvc -n <namespace>
 ```
 
-<p>The names are placeholders. These examples show what to inspect; they do not claim that a cluster is running on this website.</p>
-
-## 04 / Lessons to carry forward
-
-<p>I would organize a repeatable version of the lab around one application, a declared namespace, a saved manifest set, and an explicit check at each layer. That creates a clearer debugging path than a long sequence of installation commands.</p><p lang="zh">复盘：先区分“节点没就绪”“工作负载没就绪”和“服务访问不通”，再收集对应事件与状态。</p><p>Before a current rerun, update the package sources, supported Kubernetes version, runtime integration, and networking components. Historical credentials and campus-specific configuration are excluded.</p>
+复现时可以围绕一个应用、一个 namespace 和一组保存的 manifest 逐层验证。先区分“节点未就绪”“工作负载未就绪”和“服务访问不通”，再收集对应的状态与事件。软件源、运行时和网络组件需要按新环境重新检查。

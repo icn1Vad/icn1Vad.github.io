@@ -1,8 +1,12 @@
 ---
 import {getCollection,render} from 'astro:content';
 import Site from '../../layouts/Site.astro';
-import {architecture} from '../../lib/views.mjs';
 export async function getStaticPaths(){return (await getCollection('projects')).map(entry=>({params:{slug:entry.id},props:{entry}}));}
-const {entry}=Astro.props;const p=entry.data;const {Content,headings}=await render(entry);
+const {entry}=Astro.props;const p=entry.data;const {Content}=await render(entry);
 ---
-<Site title={p.title} description={p.summary} active="projects"><nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/projects/">Projects</a><span>/</span><span aria-current="page">{p.title}</span></nav><header class="article-head"><div class="eyebrow">{p.type}</div><h1>{p.title}</h1><p class="article-deck">{p.subtitle}</p><p class="article-cn" lang="zh">{p.cn}</p><div class="chips">{p.tags.map(t=><span class="chip">{t}</span>)}</div></header><div class="case-summary"><div><small>ROLE</small>{p.role}</div><div><small>PERIOD</small>{p.period}</div><div><small>FORMAT</small>Public technical case study</div></div>{entry.id==='proofspace'&&<div class="case-architecture"><Fragment set:html={architecture()}/></div>}<div class="article-layout"><article class="article-body"><Content/><div class="external-links">{p.links.map(([label,url])=><a href={url} target="_blank" rel="noopener noreferrer">{label} ↗</a>)}</div><div class="article-foot"><a href="/projects/">← All projects</a></div></article><nav class="article-toc" aria-label="On this page"><h2>ON THIS PAGE</h2>{headings.filter(h=>h.depth===2).map(h=><a href={'#'+h.slug} data-toc={h.slug}>{h.text}</a>)}</nav></div></Site>
+<Site title={p.title} description={p.summary} active="projects">
+  <a class="back-link" href="/projects/">返回项目列表</a>
+  <header class="article-head"><h1>{p.title}</h1><p class="article-deck">{p.cn}</p><p class="technology">技术：{p.tags.join('、')}</p></header>
+  <dl class="project-facts"><div><dt>个人职责</dt><dd>{p.role}</dd></div><div><dt>时间</dt><dd>{p.period}</dd></div></dl>
+  <article class="article-body"><Content/><div class="external-links">{p.links.map(([label,url])=><a href={url}>{label}</a>)}</div></article>
+</Site>
